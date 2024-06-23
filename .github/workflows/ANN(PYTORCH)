@@ -1,0 +1,51 @@
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import numpy as np
+
+# Define a simple dataset (example)
+# Input features
+X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=np.float32)
+# Target outputs (logical OR)
+y = np.array([[0], [1], [1], [0]], dtype=np.float32)
+
+# Convert numpy arrays to PyTorch tensors
+X_tensor = torch.tensor(X)
+y_tensor = torch.tensor(y)
+
+# Define a neural network model
+class SimpleNN(nn.Module):
+    def __init__(self):
+        super(SimpleNN, self).__init__()
+        self.fc = nn.Linear(2, 1)  # 2 input features, 1 output
+    
+    def forward(self, x):
+        x = torch.sigmoid(self.fc(x))  # Sigmoid activation for binary classification
+        return x
+
+# Instantiate the model, loss function, and optimizer
+model = SimpleNN()
+criterion = nn.BCELoss()  # Binary Cross Entropy loss for binary classification
+optimizer = optim.SGD(model.parameters(), lr=0.1)  # Stochastic Gradient Descent optimizer
+
+# Training loop
+epochs = 1000
+for epoch in range(epochs):
+    # Forward pass
+    outputs = model(X_tensor)
+    loss = criterion(outputs, y_tensor)
+    
+    # Backward pass and optimization
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+    
+    if (epoch+1) % 100 == 0:
+        print(f'Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}')
+
+# Evaluation (example)
+with torch.no_grad():
+    test_output = model(X_tensor)
+    predicted = (test_output > 0.5).float()
+    accuracy = (predicted == y_tensor).sum().item() / len(y_tensor)
+    print(f'Accuracy: {accuracy:.2f}')
