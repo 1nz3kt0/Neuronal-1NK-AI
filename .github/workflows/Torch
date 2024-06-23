@@ -1,0 +1,25 @@
+
+
+class SimpleNN(nn.Module):
+    def __init__(self):
+        super(SimpleNN, self).__init__()
+        self.fc1 = nn.Linear(2, 10)   # Input size is 2, output size is 10
+        self.relu = nn.ReLU()         # ReLU activation function
+        self.fc2 = nn.Linear(10, 1)   # Input size is 10, output size is 1
+        self.sigmoid = nn.Sigmoid()   # Sigmoid activation function for binary classification
+    
+    def forward(self, x):
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.fc2(x)
+        x = self.sigmoid(x)
+        return x
+
+# Instantiate the model
+model = SimpleNN()
+
+# Example input
+example_input = torch.randn(1, 2)  # Example input tensor of size (1, 2)
+
+# Save the model to TorchScript format
+torch.jit.save(torch.jit.script(model), 'simple_nn_model.pt')
