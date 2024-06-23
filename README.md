@@ -20,8 +20,7 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/your-repository.git
-   cd your-repository
+   git clone https://github.com/1nz3kt0/Neuronal-1NK-AI.git
    ```
 
 2. Install the required dependencies:
