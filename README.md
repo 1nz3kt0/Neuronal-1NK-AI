@@ -1,8 +1,8 @@
-Certainly! Here's an example README file written in the first-person perspective for a machine learning project using PyTorch:
 
----
 
-# Machine Learning Project with PyTorch
+# 1NK AI neuronal ANN (Machine Learning Project with PyTorch)
+
+by 1nz3kt0
 
 ## Introduction
 
